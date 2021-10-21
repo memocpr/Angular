@@ -19,6 +19,10 @@ export class RecipeEditComponent implements OnInit {
               private router: Router) {
   }
 
+  get ingredientsControls() {
+    return (this.recipeForm.get('ingredients') as FormArray).controls;
+  }
+
   ngOnInit() {
     this.route.params
       .subscribe(
@@ -96,10 +100,6 @@ export class RecipeEditComponent implements OnInit {
       'description': new FormControl(recipeDescription, Validators.required),
       'ingredients': recipeIngredients
     });
-  }
-
-  get controls() { // a getter!
-    return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
 
 }

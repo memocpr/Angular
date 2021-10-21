@@ -10,7 +10,10 @@ import { RecipeService } from '../recipe.service';
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
+
+
 export class RecipeListComponent implements OnInit, OnDestroy {
+  
   recipes: Recipe[];
   subscription: Subscription;
 

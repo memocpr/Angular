@@ -20,14 +20,14 @@
                             Please enter a valid email !</span>
                     </div>
                 </div>
-                <div class="radio" *ngFor="let gender of genders">
+                <div class="radio" *ngFor="let gend of genders">
                     <label>
-            <input
-              type="radio"
-              [value]="gender"
-              formControlName="gender">
-              {{ gender }}
-          </label>
+                        <input
+                            type="radio"
+                            [value]="gend"
+                            formControlName="gender">
+                            {{ gend }}
+                    </label>
                 </div>
 
                 <div formArrayName="hobbies">

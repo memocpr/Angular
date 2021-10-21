@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   signupForm:FormGroup;
   forbiddenUserNames=['Chris','Anna']
 
+  
+
   ngOnInit(){
       this.signupForm=new FormGroup({
           'userData':new FormGroup({
@@ -19,7 +21,7 @@ export class AppComponent implements OnInit {
             'email':new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails)
           }),
           
-          'gender':new FormControl('male'),
+          'gender':new FormControl('female'),
           'hobbies':new FormArray([])
       });
 
@@ -84,6 +86,11 @@ export class AppComponent implements OnInit {
     });
     return promise;
   }
+
+
+
+  
+
 
 
 

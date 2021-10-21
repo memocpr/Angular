@@ -31,13 +31,13 @@
                 </div>
                 <p>Your Reply: {{answer}}</p>
 
-                <div class="radio" *ngFor="let gender of genders">
+                <div class="radio" *ngFor="let gen of genders">
                     <label>
                         <input type="radio"
                         name="gender"
                         ngModel
-                        [value]="gender" required>
-                        {{gender}}
+                        [value]="gen" required>
+                        {{gen}}
                     </label>
 
                 </div>

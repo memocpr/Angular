@@ -20,7 +20,7 @@ export class PostsService {
     const postData: Post = { title: title, content: content };
     this.http
       .post<{ name: string }>(
-        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        'https://angular-cdb0a-default-rtdb.firebaseio.com/posts.json',
         postData,
         {
           observe: 'response'
@@ -42,7 +42,7 @@ export class PostsService {
     searchParams = searchParams.append('custom', 'key');
     return this.http
       .get<{ [key: string]: Post }>(
-        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        'https://angular-cdb0a-default-rtdb.firebaseio.com/posts.json',
         {
           headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
           params: searchParams,
@@ -68,7 +68,7 @@ export class PostsService {
 
   deletePosts() {
     return this.http
-      .delete('https://ng-complete-guide-c56d3.firebaseio.com/posts.json', {
+      .delete('https://angular-cdb0a-default-rtdb.firebaseio.com/posts.json', {
         observe: 'events',
         responseType: 'text'
       })
