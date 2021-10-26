@@ -28,6 +28,14 @@ var connection = mysql.createConnection({
     database: 'digilab'
 })
 
+// file upload
+
+var fileUpload = require('express-fileupload');
+var fs = require('fs');
+app.use(fileUpload());
+app.use('/Photos', Express.static(__dirname + '/Photos'));
+
+
 // CRUD operators for Department table
 
 app.get('/api/Department', (req, res) => {
@@ -124,7 +132,8 @@ app.post('/api/employee', (req, res) => {
 
     connection.query(query, values, (err, rows, fields) => {
         if (err) {
-            res.send('Failed...!');
+            console.log(err);
+            return res.send('Failed...!');
         }
         res.json('Added Successfully...!');
     })
@@ -169,4 +178,17 @@ app.delete('/api/employee/:id', (req, res) => {
         res.json('Deleted Successfully...!');
     })
 
+})
+
+// post request for photo upload
+
+app.post('/api/employee/savefile', (req, res) => {
+
+    fs.writeFile("./Photos/" + req.files.file.name,
+        req.files.file.data, (err) => {
+            if (err) {
+                return console.log(err);
+            }
+            res.json(req.files.file.name);
+        })
 })
