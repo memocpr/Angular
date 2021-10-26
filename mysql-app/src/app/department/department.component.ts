@@ -21,7 +21,6 @@ export class DepartmentComponent implements OnInit {
   ngOnInit(): void {
     this.refreshList();
   }
-
   refreshList(){
     this.http.get<any>(environment.API_URL+this.departmentEndPoint)
     .subscribe(data=>{
@@ -40,6 +39,16 @@ export class DepartmentComponent implements OnInit {
     this.modalTitle="Edit Department";
     this.DepartmentId=oneDep.DepartmentId;
     this.DepartmentName=oneDep.DepartmentName;
+  }
+
+  onDelete(id:any){
+    if(confirm('Are You Sure???')){
+      this.http.delete(environment.API_URL+this.departmentEndPoint+id)
+      .subscribe(res=>{
+        alert(res.toString());
+        this.refreshList();
+      });
+    }
   }
 
   onCreate(){
@@ -65,14 +74,6 @@ export class DepartmentComponent implements OnInit {
     });
   }
 
-  onDelete(id:any){
-
-    if(confirm('Are You Sure???')){
-      this.http.delete(environment.API_URL+this.departmentEndPoint+id).subscribe(res=>{
-        alert(res.toString());
-        this.refreshList();
-      });
-    }
-  }
+  
 
 }
