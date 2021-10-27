@@ -71,6 +71,7 @@
 
                         <div class="d-flex flex-row bd-highlight mb-3">
                             <img [src]="PhotoPath+PhotoFileName" width="250px" alt="anyPhotoImage">
+                            <input class="m-2" type="file" (change)="onImageUpload($event)">
                         </div>
                     </div>
 

@@ -38,7 +38,6 @@ export class EmployeeComponent implements OnInit {
     this.http.get<any>(environment.API_URL+this.departmentEndPoint)
     .subscribe(data=>{
       this.departments=data;
-      console.log("Departments : " +this.departments)
     });
   }
 
@@ -94,9 +93,23 @@ export class EmployeeComponent implements OnInit {
     };
 
     this.http.put(environment.API_URL+this.employeeEndPoint,value).subscribe(res=>{
+      console.log(res);
       alert(res.toString());
       this.refreshList();
     });
+  }
+
+
+  onImageUpload(event:any){
+    var file=event.target.files[0];
+    const formData:FormData=new FormData();
+    formData.append('file',file,file.name);
+
+    this.http.post(environment.API_URL+this.employeeEndPoint+'savefile',formData)
+    .subscribe((data:any)=>{
+      this.PhotoFileName=data.toString();
+    })
+
   }
 
   
