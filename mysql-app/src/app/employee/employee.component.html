@@ -3,22 +3,27 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>DepartmentID</th>
-            <th>DepartmentName</th>
+            <th>EmployeeId</th>
+            <th>EmployeeName</th>
+            <th>Department</th>
+            <th>DateOfJoining</th>
             <th>Options</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let oneDep of departments">
-            <td>{{oneDep.DepartmentId}}</td>
-            <td>{{oneDep.DepartmentName}}</td>
+        <tr *ngFor="let oneEmp of employees">
+            <td>{{oneEmp.EmployeeId}}</td>
+            <td>{{oneEmp.EmployeeName}}</td>
+            <td>{{oneEmp.Department}}</td>
+            <td>{{oneEmp.DateOfJoining}}</td>
+
             <td>
-                <button type="button" class="btn btn-light mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onEdit(oneDep)">
+                <button type="button" class="btn btn-light mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onEdit(oneEmp)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                         <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                       </svg>
                 </button> |
-                <button type="button" class="btn btn-light mr-1" (click)="onDelete(oneDep.DepartmentId)">
+                <button type="button" class="btn btn-light mr-1" (click)="onDelete(oneEmp.EmployeeId)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -38,13 +43,39 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Department Name</span>
-                        <input type="text" class="form-control" [(ngModel)]="DepartmentName">
-                    </div>
-                    <button *ngIf="DepartmentId==0" class="btn btn-primary" type="button" (click)=onCreate()>Create</button>
 
-                    <button *ngIf="DepartmentId!=0" class="btn btn-primary" type="button" (click)=onUpdate()>Update</button>
+                    <div class="d-flex flex-row bd-highlight mb-3">
+
+                        <div class="p-2 w-50 bd-highlight">
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Name</span>
+                                <input type="text" class="form-control" [(ngModel)]="EmployeeName">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Department</span>
+                                <select class="form-select" [(ngModel)]="Department">
+                                    <option *ngFor="let oneDep of departments">
+                                        {{oneDep.DepartmentName}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">DoJ</span>
+                                <input type="date" class="form-control" [(ngModel)]="DateOfJoining">
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex flex-row bd-highlight mb-3">
+                            <img [src]="PhotoPath+PhotoFileName" width="250px" alt="anyPhotoImage">
+                        </div>
+                    </div>
+
+                    <button *ngIf="EmployeeId==0" class="btn btn-primary" type="button" (click)=onCreate()>Create</button>
+                    <button *ngIf="EmployeeId!=0" class="btn btn-primary" type="button" (click)=onUpdate()>Update</button>
                 </div>
             </div>
         </div>

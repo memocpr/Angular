@@ -3,25 +3,38 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-department',
-  templateUrl: './department.component.html',
-  styleUrls: ['./department.component.css']
+  selector: 'app-employee',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
 
   constructor(private http:HttpClient) { }
 
+  departments:any=[];
+  departmentEndPoint='department/';
+
   employees:any=[];
-  employeeEndPoint='department/';
+  employeeEndPoint='employee/';
+  
 
   modalTitle="";
-  DepartmentId=0;
-  DepartmentName="";
+  EmployeeId=0;
+  EmployeeName="";
+  Department="";
+  DateOfJoining="";
+  PhotoFileName="anyphoto.png";
+  PhotoPath=environment.PHOTO_URL;
 
   ngOnInit(): void {
     this.refreshList();
   }
   refreshList(){
+    this.http.get<any>(environment.API_URL+this.employeeEndPoint)
+    .subscribe(data=>{
+      this.employees=data;
+    });
+
     this.http.get<any>(environment.API_URL+this.departmentEndPoint)
     .subscribe(data=>{
       this.departments=data;
@@ -30,20 +43,26 @@ export class EmployeeComponent implements OnInit {
   }
 
   onAdd(){
-    this.modalTitle="Add Department";
-    this.DepartmentId=0;
-    this.DepartmentName="";
+    this.modalTitle="Add Employee";
+    this.EmployeeId=0;
+    this.EmployeeName="";
+    this.Department="";
+    this.DateOfJoining="";
+    this.PhotoFileName="anyphoto.png";
   }
 
-  onEdit(oneDep:any){
-    this.modalTitle="Edit Department";
-    this.DepartmentId=oneDep.DepartmentId;
-    this.DepartmentName=oneDep.DepartmentName;
+  onEdit(oneEmp:any){
+    this.modalTitle="Edit Employee";
+    this.EmployeeId=oneEmp.EmployeeId;
+    this.EmployeeName=oneEmp.EmployeeName;
+    this.Department=oneEmp.Department;
+    this.DateOfJoining=oneEmp.DateOfJoining;
+    this.PhotoFileName=oneEmp.PhotoFileName;
   }
 
   onDelete(id:any){
     if(confirm('Are You Sure???')){
-      this.http.delete(environment.API_URL+this.departmentEndPoint+id)
+      this.http.delete(environment.API_URL+this.employeeEndPoint+id)
       .subscribe(res=>{
         alert(res.toString());
         this.refreshList();
@@ -53,10 +72,13 @@ export class EmployeeComponent implements OnInit {
 
   onCreate(){
     var value={
-      DepartmentName:this.DepartmentName
+      EmployeeName:this.EmployeeName,
+      Department:this.Department,
+      DateOfJoining:this.DateOfJoining,
+      PhotoFileName:this.PhotoFileName
     };
 
-    this.http.post(environment.API_URL+this.departmentEndPoint,value).subscribe(res=>{
+    this.http.post(environment.API_URL+this.employeeEndPoint,value).subscribe(res=>{
       alert(res.toString());
       this.refreshList();
     });
@@ -64,11 +86,14 @@ export class EmployeeComponent implements OnInit {
 
   onUpdate(){
     var value={
-      DepartmentId:this.DepartmentId,
-      DepartmentName:this.DepartmentName
+      EmployeeId:this.EmployeeId,
+      EmployeeName:this.EmployeeName,
+      Department:this.Department,
+      DateOfJoining:this.DateOfJoining,
+      PhotoFileName:this.PhotoFileName
     };
 
-    this.http.put(environment.API_URL+this.departmentEndPoint,value).subscribe(res=>{
+    this.http.put(environment.API_URL+this.employeeEndPoint,value).subscribe(res=>{
       alert(res.toString());
       this.refreshList();
     });
