@@ -14,7 +14,7 @@ app.listen(49146, () => {
 });
 
 app.get('/', (request, response) => {
-    response.send('Hello Word...!');
+    response.send('Hi MySQL...!');
 })
 
 var cors = require('cors');
