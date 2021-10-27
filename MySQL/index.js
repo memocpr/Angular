@@ -187,6 +187,7 @@ app.post('/api/employee/savefile', (req, res) => {
     fs.writeFile("./Photos/" + req.files.file.name,
         req.files.file.data, (err) => {
             if (err) {
+                console.log(err);
                 return console.log(err);
             }
             res.json(req.files.file.name);
